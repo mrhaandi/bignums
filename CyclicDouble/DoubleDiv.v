@@ -1142,7 +1142,8 @@ Section DoubleDivGt.
   Proof.
    intros a b d H H1; apply Zis_gcd_for_euclid with (a/b).
    pattern a at 1;rewrite (Z_div_mod_eq a b).
-   ring_simplify (b * (a / b) + a mod b - a / b * b);trivial. zarith.
+   ring_simplify (b * (a / b) + a mod b - a / b * b);trivial.
+   all: zarith.
   Qed.
 
   Lemma spec_ww_gcd_gt_aux_body :

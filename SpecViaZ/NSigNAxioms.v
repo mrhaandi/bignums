@@ -331,9 +331,16 @@ Program Instance div_wd : Proper (eq==>eq==>eq) div.
 #[global]
 Program Instance mod_wd : Proper (eq==>eq==>eq) modulo.
 
+Theorem div_mod_full : forall a b, a == b*(div a b) + (modulo a b).
+Proof.
+intros a b. zify. destruct (Z.eq_decidable [b] 0) as [->|?].
+- now destruct [a].
+- now apply Z.div_mod.
+Qed.
+
 Theorem div_mod : forall a b, ~b==0 -> a == b*(div a b) + (modulo a b).
 Proof.
-intros a b. zify. intros. apply Z.div_mod; auto.
+intros. apply div_mod_full.
 Qed.
 
 Theorem mod_bound_pos : forall a b, 0<=a -> 0<b ->
